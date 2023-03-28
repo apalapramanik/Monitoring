@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+from exception import MonException
 
 
 class AbstractInterpreter(object):
@@ -10,7 +11,7 @@ class AbstractInterpreter(object):
 
     def exist_ast(self):
         if self.ast is None:
-            raise RTAMTException('ast is empty')
+            raise MonException('ast is empty')
         return
 
     def set_ast(self, ast):
