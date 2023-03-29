@@ -1,9 +1,9 @@
-from operations import AbstractDenseTimeOnlineOperation
+from operations import AbstractRuntimeOperation
 import math
 import intersection as intersect
 
 
-class AbsOperation(AbstractDenseTimeOnlineOperation):
+class AbsOperation(AbstractRuntimeOperation):
     def __init__(self):
         pass
 
@@ -25,7 +25,7 @@ class AbsOperation(AbstractDenseTimeOnlineOperation):
     
 #######################################################################
 
-class AdditionOperation(AbstractDenseTimeOnlineOperation):
+class AdditionOperation(AbstractRuntimeOperation):
     def __init__(self):
         self.sample_left_buf = []
         self.sample_right_buf = []
@@ -52,7 +52,7 @@ class AdditionOperation(AbstractDenseTimeOnlineOperation):
     
 ###################################################################################
 
-class DivisionOperation(AbstractDenseTimeOnlineOperation):
+class DivisionOperation(AbstractRuntimeOperation):
     def __init__(self):
         self.sample_left_buf = []
         self.sample_right_buf = []
@@ -80,7 +80,7 @@ class DivisionOperation(AbstractDenseTimeOnlineOperation):
     
 ############################################################################################
 
-class ExpOperation(AbstractDenseTimeOnlineOperation):
+class ExpOperation(AbstractRuntimeOperation):
     def __init__(self):
         pass
 
@@ -102,7 +102,7 @@ class ExpOperation(AbstractDenseTimeOnlineOperation):
     
 ############################################################################################
 
-class MultiplicationOperation(AbstractDenseTimeOnlineOperation):
+class MultiplicationOperation(AbstractRuntimeOperation):
     def __init__(self):
         self.sample_left_buf = []
         self.sample_right_buf = []
@@ -129,7 +129,7 @@ class MultiplicationOperation(AbstractDenseTimeOnlineOperation):
     
 ##########################################################################################
 
-class PowOperation(AbstractDenseTimeOnlineOperation):
+class PowOperation(AbstractRuntimeOperation):
     def __init__(self):
         self.sample_left_buf = []
         self.sample_right_buf = []
@@ -155,7 +155,7 @@ class PowOperation(AbstractDenseTimeOnlineOperation):
     
 ###########################################################################################
 
-class SqrtOperation(AbstractDenseTimeOnlineOperation):
+class SqrtOperation(AbstractRuntimeOperation):
     def __init__(self):
         pass
 
@@ -179,7 +179,7 @@ class SqrtOperation(AbstractDenseTimeOnlineOperation):
     
 #############################################################################################
 
-class SubtractionOperation(AbstractDenseTimeOnlineOperation):
+class SubtractionOperation(AbstractRuntimeOperation):
     def __init__(self):
         self.sample_left = []
         self.sample_right = []

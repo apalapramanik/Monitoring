@@ -1,7 +1,7 @@
-from operations import AbstractOnlineOperation
+from operations import AbstractRuntimeOperation
 import math
 
-class AbsOperation(AbstractOnlineOperation):
+class AbsOperation(AbstractRuntimeOperation):
     def __init__(self):
         pass
 
@@ -12,7 +12,7 @@ class AbsOperation(AbstractOnlineOperation):
         sample_result = abs(sample)
         return sample_result
     
-class AdditionOperation(AbstractOnlineOperation):
+class AdditionOperation(AbstractRuntimeOperation):
     def __init__(self):
         pass
 
@@ -23,7 +23,7 @@ class AdditionOperation(AbstractOnlineOperation):
         sample_result = sample_left + sample_right
         return sample_result
 
-class SubtractionOperation(AbstractOnlineOperation):
+class SubtractionOperation(AbstractRuntimeOperation):
     def __init__(self):
         pass
 
@@ -34,7 +34,7 @@ class SubtractionOperation(AbstractOnlineOperation):
         sample_result = sample_left - sample_right
         return sample_result
 
-class DivisionOperation(AbstractOnlineOperation):
+class DivisionOperation(AbstractRuntimeOperation):
     def __init__(self):
         pass
 
@@ -45,7 +45,7 @@ class DivisionOperation(AbstractOnlineOperation):
         sample_result = sample_left / sample_right
         return sample_result
     
-class ExpOperation(AbstractOnlineOperation):
+class ExpOperation(AbstractRuntimeOperation):
     def __init__(self):
         pass
 
@@ -56,7 +56,7 @@ class ExpOperation(AbstractOnlineOperation):
         sample_result = math.exp(sample)
         return sample_result
     
-class MultiplicationOperation(AbstractOnlineOperation):
+class MultiplicationOperation(AbstractRuntimeOperation):
     def __init__(self):
         pass
 
@@ -67,7 +67,7 @@ class MultiplicationOperation(AbstractOnlineOperation):
         sample_result = sample_left * sample_right
         return sample_result
     
-class PowOperation(AbstractOnlineOperation):
+class PowOperation(AbstractRuntimeOperation):
     def __init__(self):
         pass
 
@@ -78,7 +78,7 @@ class PowOperation(AbstractOnlineOperation):
         sample_result = math.pow(sample_left, sample_right)
         return sample_result
 
-class SqrtOperation(AbstractOnlineOperation):
+class SqrtOperation(AbstractRuntimeOperation):
     def __init__(self):
         pass
 

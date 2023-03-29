@@ -1,7 +1,8 @@
 import os
 from abc import ABCMeta
-from operations import DenseTimeInterpreter
+from operations import TimeInterpreter
 from exception import MonException
+from operations import AbstractRuntimeOperation
 
 class AbstractSpecification(object):
     __metaclass__ = ABCMeta
@@ -112,34 +113,24 @@ class AbstractSpecification(object):
         self.ast.parse()
         
     def set_sampling_period(self, sampling_period=int(1), unit='s', tolerance=float(0.1)):
-        if hasattr(self, 'runtime_interpreter'):
-            if isinstance(self.runtime_interpreter, DenseTimeInterpreter):
-                self.runtime_interpreter.set_sampling_period(sampling_period, unit, tolerance)
-            else:
-                MonException('time_unit_transformer() allowed only dense time')
+        if hasattr(self, 'runtime_interpreter'):            
+            self.runtime_interpreter.set_sampling_period(sampling_period, unit, tolerance)
+        
 
     def get_sampling_frequency(self, sampling_period=int(1), unit='s', tolerance=float(0.1)):
-        if hasattr(self, 'runtime_interpreter'):
-            if isinstance(self.runtime_interpreter, DenseTimeInterpreter):
-                self.runtime_interpreter.get_sampling_frequency()
-            else:
-                MonException('time_unit_transformer() allowed only dense time')
-                
+        if hasattr(self, 'runtime_interpreter'):            
+            self.runtime_interpreter.get_sampling_frequency()
+            
     @property
     def sampling_violation_counter(self):
-        if hasattr(self, 'online_interpreter'):
-            if isinstance(self.runtime_interpreter, DenseTimeInterpreter):
-                return self.runtime_interpreter.sampling_violation_counter
-            else:
-                MonException('only discrete time has sampling_violation_counter')
-                
+        if hasattr(self, 'runtime_interpreter'):
+            return self.runtime_interpreter.sampling_violation_counter
+            
     @property
     def sampling_tolerance(self):
-        if hasattr(self, 'online_interpreter'):
-            if isinstance(self.runtime_interpreter, DenseTimeInterpreter):
-                return self.runtime_interpreter.sampling_tolerance
-            else:
-                MonException('only discrete time has sampling_tolerance')
+        if hasattr(self, 'runtime_interpreter'):         
+            return self.runtime_interpreter.sampling_tolerance
+         
                 
     ############################################################
     
@@ -198,7 +189,7 @@ class AbstractSpecification(object):
 
 ## WORK ON THIS CLASS-------------------
     
-class AbstractOnlineSpecification(AbstractSpecification):
+class AbstractRuntimeSpecification(AbstractSpecification):
     def __init__(self, ast, runtimeInterpreter, pastifier=None):
         AbstractSpecification.__init__(self, ast)
         self.name = 'Abstract Runtime Specification'
@@ -216,7 +207,7 @@ class AbstractOnlineSpecification(AbstractSpecification):
             self.set_ast_flag = True
 
         
-        if isinstance(self.runtime_interpreter, AbstractDenseTimeOnlineInterpreter):
+        if isinstance(self.runtime_interpreter, AbstractRuntimeOperation):
             if len(args) == 0:
                 raise Exception()
             elif len(args) == 1:

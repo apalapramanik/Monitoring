@@ -1,7 +1,7 @@
-from operations import AbstractDenseTimeOnlineOperation
+from operations import AbstractRuntimeOperation
 import intersection as intersect
 
-class AlwaysOperation(AbstractDenseTimeOnlineOperation):
+class AlwaysOperation(AbstractRuntimeOperation):
     def __init__(self):
         self.prev = float("inf")
 
@@ -25,7 +25,7 @@ class AlwaysOperation(AbstractDenseTimeOnlineOperation):
     
 #################################################################################
 
-class AndOperation(AbstractDenseTimeOnlineOperation):
+class AndOperation(AbstractRuntimeOperation):
     def __init__(self):
         self.sample_left_buf = []
         self.sample_right_buf = []
@@ -53,7 +53,7 @@ class AndOperation(AbstractDenseTimeOnlineOperation):
     
 ##########################################################################################
 
-class ConstantOperation(AbstractDenseTimeOnlineOperation):
+class ConstantOperation(AbstractRuntimeOperation):
     def __init__(self, val):
         self.val = val
 
@@ -67,7 +67,7 @@ class ConstantOperation(AbstractDenseTimeOnlineOperation):
     
 ########################################################################################
 
-class HistoricallyOperation(AbstractDenseTimeOnlineOperation):
+class HistoricallyOperation(AbstractRuntimeOperation):
     def __init__(self):
         self.prev = float("inf")
 
@@ -91,7 +91,7 @@ class HistoricallyOperation(AbstractDenseTimeOnlineOperation):
     
 ####################################################################################
 
-class ImpliesOperation(AbstractDenseTimeOnlineOperation):
+class ImpliesOperation(AbstractRuntimeOperation):
     def __init__(self):
         self.sample_left_buf = []
         self.sample_right_buf = []
@@ -118,7 +118,7 @@ class ImpliesOperation(AbstractDenseTimeOnlineOperation):
     
 ##############################################################################################
 
-class NotOperation(AbstractDenseTimeOnlineOperation):
+class NotOperation(AbstractRuntimeOperation):
     def __init__(self):
         self.input = []
 
@@ -141,7 +141,7 @@ class NotOperation(AbstractDenseTimeOnlineOperation):
     
 ###################################################################################################
 
-class OnceOperation(AbstractDenseTimeOnlineOperation):
+class OnceOperation(AbstractRuntimeOperation):
     def __init__(self):
         self.prev = - float("inf")
 
@@ -165,7 +165,7 @@ class OnceOperation(AbstractDenseTimeOnlineOperation):
     
 ##############################################################################################
 
-class OrOperation(AbstractDenseTimeOnlineOperation):
+class OrOperation(AbstractRuntimeOperation):
     def __init__(self):
         self.sample_left_buf = []
         self.sample_right_buf = []
@@ -192,7 +192,7 @@ class OrOperation(AbstractDenseTimeOnlineOperation):
 
 #############################################################################################################
 
-class XorOperation(AbstractDenseTimeOnlineOperation):
+class XorOperation(AbstractRuntimeOperation):
     def __init__(self):
         self.sample_left_buf = []
         self.sample_right_buf = []
