@@ -1,4 +1,4 @@
-from extras.stl_parser_visitor import StlAstParserVisitor
+from stl_parser_visitor import StlAstParserVisitor
 from antlr.stlLexer import StlLexer
 from antlr.stlParser import StlParser
 from abstract_ast_parser import ast_factory

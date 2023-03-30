@@ -1,6 +1,6 @@
 
 
-from stl_ast_visitor import StlAstVisitor
+from ast_visitor import StlAstVisitor
 # from rtamt.pastifier.ltl.horizon import LtlHorizon
 from stl_temporal_nodes import *
 
