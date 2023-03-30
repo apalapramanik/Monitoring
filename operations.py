@@ -5,7 +5,7 @@ from exception import MonException
 
 ##########################combine AbstractOnlineOperation and AbstractDenseTimeOnlineOperation into == my class AbstractRuntimeOperation #################################
 
-class AbstractRuntimeOperation:
+class AbstractOnlineOperation:
     """
     Abstract Operation: template for runtime operation
     """

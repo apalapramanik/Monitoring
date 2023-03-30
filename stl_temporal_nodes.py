@@ -5,7 +5,6 @@ class TimedAlways(UnaryNode, Interval):
     """A class for storing STL Always nodes
         Inherits TemporalNode
     """
-
     def __init__(self, child, interval, is_pure_python=True):
         """Constructor for Always
         Parameters:
