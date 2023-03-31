@@ -25,6 +25,7 @@ from abstract_ast_parser import AbstractAst
 def monitor():
     # # stl
     spec = StlDiscreteTimeSpecification()
+    print("Specification instance created:", spec.name)
     spec.declare_var('a', 'float')
     spec.declare_var('b', 'float')
     spec.spec = 'eventually[0,1] (a >= b)'
