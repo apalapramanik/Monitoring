@@ -34,6 +34,7 @@ class AbstractAst:
     
     __metaclass__ = ABCMeta
      
+    # def __init__(self, antrlLexerType, antrlParserType, parserErrorListenerType = None): 
     def __init__(self, antrlLexerType, antrlParserType, parserErrorListenerType = None):
 
         # Class of lexser, parser, paserVisitor
@@ -177,8 +178,26 @@ class AbstractAst:
     def add_sub_spec(self, sub_spec):
         self.modular_spec = self.modular_spec + sub_spec + '\n'
         
+    ###########################################################################################################
     
-    
+    def create_var_from_name(self, var_name):
+        var = None
+        var_type = self.var_type_dict[var_name]
+        if var_type.encode('utf-8') == 'float'.encode('utf-8'):
+            var = float()
+        elif var_type.encode('utf-8') == 'int'.encode('utf-8'):
+            var = int()
+        elif var_type.encode('utf-8') == 'complex'.encode('utf-8'):
+            var = complex()
+        else:
+            try:
+                var_module = self.modules[var_type]
+                class_ = getattr(var_module, var_type)
+                var = class_()
+            except KeyError:
+                raise MonException('The type {} does not seem to be imported.'.format(var_type))
+        return var
+        
     ###############################################################################################################
     
     def declare_var(self, var_name, var_type):

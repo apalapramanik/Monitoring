@@ -1,5 +1,6 @@
 from node import *
 from interpreters import AbstractAstVisitor
+from discrete_operators import *
 
 
 class LtlAstVisitor(AbstractAstVisitor):
@@ -64,7 +65,7 @@ class LtlAstVisitor(AbstractAstVisitor):
         return result
 
     def raise_exception(self, text):
-        raise RTAMTException(text)
+        raise MonException(text)
 
     def visitPredicate(self, node, *args, **kwargs):
         return self.visitChildren(node, *args, **kwargs)
