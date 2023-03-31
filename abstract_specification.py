@@ -1,8 +1,8 @@
 import os
 from abc import ABCMeta
-from operations import TimeInterpreter
+# from time_interpreter import TimeInterpreter
 from exception import MonException
-from operations import AbstractRuntimeOperation
+# from discrete_operators import AbstractOnlineOperation
 
 class AbstractSpecification(object):
     __metaclass__ = ABCMeta
@@ -113,23 +113,23 @@ class AbstractSpecification(object):
         self.ast.parse()
         
     def set_sampling_period(self, sampling_period=int(1), unit='s', tolerance=float(0.1)):
-        if hasattr(self, 'runtime_interpreter'):            
-            self.runtime_interpreter.set_sampling_period(sampling_period, unit, tolerance)
+        if hasattr(self, 'online_interpreter'):            
+            self.online_interpreter.set_sampling_period(sampling_period, unit, tolerance)
         
 
     def get_sampling_frequency(self, sampling_period=int(1), unit='s', tolerance=float(0.1)):
-        if hasattr(self, 'runtime_interpreter'):            
-            self.runtime_interpreter.get_sampling_frequency()
+        if hasattr(self, 'online_interpreter'):            
+            self.online_interpreter.get_sampling_frequency()
             
     @property
     def sampling_violation_counter(self):
-        if hasattr(self, 'runtime_interpreter'):
-            return self.runtime_interpreter.sampling_violation_counter
+        if hasattr(self, 'online_interpreter'):
+            return self.online_interpreter.sampling_violation_counter
             
     @property
     def sampling_tolerance(self):
-        if hasattr(self, 'runtime_interpreter'):         
-            return self.runtime_interpreter.sampling_tolerance
+        if hasattr(self, 'online_interpreter'):         
+            return self.online_interpreter.sampling_tolerance
          
                 
     ############################################################
@@ -189,11 +189,11 @@ class AbstractSpecification(object):
 
 ## WORK ON THIS CLASS-------------------
     
-class AbstractRuntimeSpecification(AbstractSpecification):
-    def __init__(self, ast, runtimeInterpreter, pastifier=None):
+class AbstractOnlineSpecification(AbstractSpecification):
+    def __init__(self, ast, onlineInterpreter, pastifier=None):
         AbstractSpecification.__init__(self, ast)
-        self.name = 'Abstract Runtime Specification'
-        self.runtime_interpreter = runtimeInterpreter
+        self.name = 'Abstract Online Specification'
+        self.online_interpreter = onlineInterpreter
         self.pastifier = pastifier
 
     # forwarding pastify
@@ -203,11 +203,11 @@ class AbstractRuntimeSpecification(AbstractSpecification):
     # forwarding to interpreter
     def update(self, *args, **kwargs):
         if self.set_ast_flag != True:
-            self.runtime_interpreter.set_ast(self.ast)
+            self.online_interpreter.set_ast(self.ast)
             self.set_ast_flag = True
 
         
-        if isinstance(self.runtime_interpreter, AbstractRuntimeOperation):
+        if isinstance(self.online_interpreter, AbstractOnlineSpecification):
             if len(args) == 0:
                 raise Exception()
             elif len(args) == 1:
@@ -216,14 +216,14 @@ class AbstractRuntimeSpecification(AbstractSpecification):
                 dataset = []
                 for i in args:
                     dataset.append(i)
-            return self.runtime_interpreter.update(dataset)
+            return self.online_interpreter.update(dataset)
         
         else:
             pass
 
     def final_update(self, *args, **kwargs):
         if self.set_ast_flag != True:
-            self.runtime_interpreter.set_ast(self.ast)
+            self.online_interpreter.set_ast(self.ast)
             self.set_ast_flag = True
 
        
@@ -236,10 +236,10 @@ class AbstractRuntimeSpecification(AbstractSpecification):
             for i in args:
                 dataset.append(i)
 
-        return self.runtime_interpreter.final_update(dataset)
+        return self.online_interpreter.final_update(dataset)
 
     def reset(self):
-        self.runtime_interpreter.reset()
+        self.online_interpreter.reset()
 
     
 
