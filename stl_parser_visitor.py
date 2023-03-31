@@ -1,7 +1,8 @@
 from decimal import Decimal
 from fractions import Fraction
 from stl_temporal_nodes import *
-from antlr import stlParserVisitor
+from antlr.stlParserVisitor import stlParserVisitor
+from node import *
 
 class StlAstParserVisitor(stlParserVisitor):
 

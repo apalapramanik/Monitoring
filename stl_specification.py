@@ -1,23 +1,15 @@
-from operations import *
+# from operations import *
 from horizon_pastifier import *
 from stl_specification_parser import StlAst
+from ast_visitor import *
+from abstract_specification import *
 
 
-def StlDiscreteTimeSpecification(semantics=Semantics.STANDARD, language=Language.PYTHON):
+# semantics=Semantics.STANDARD, language=Language.PYTHON
+
+def StlDiscreteTimeSpecification():
     spec = AbstractOfflineOnlineSpecification(StlAst(), StlDiscreteTimeOfflineInterpreter(),
                                                   StlDiscreteTimeOnlineInterpreter(),
                                                   pastifier=StlPastifier())
     
-def StlDiscreteTimeOfflineInterpreter():
-    stlDiscreteTimeOfflineInterpreter = discrete_time_offline_interpreter_factory(StlDiscreteTimeOfflineAstVisitor)()
-    return stlDiscreteTimeOfflineInterpreter
-
-def StlDiscreteTimeOfflineSpecification():
-    spec = AbstractOfflineSpecification(StlAst(), StlDiscreteTimeOfflineInterpreter())
-    return spec
-
-def StlDiscreteTimeOnlineSpecification():
-    spec = AbstractOnlineSpecification(StlAst(), StlDiscreteTimeOnlineInterpreter(),
-                                       pastifier=StlPastifier())
-    return spec
 

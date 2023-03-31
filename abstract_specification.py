@@ -1,7 +1,8 @@
 import os
 from abc import ABCMeta
-# from time_interpreter import TimeInterpreter
+from time_interpreter import *
 from exception import MonException
+from interpreters import *
 # from discrete_operators import AbstractOnlineOperation
 
 class AbstractSpecification(object):
@@ -242,9 +243,42 @@ class AbstractOnlineSpecification(AbstractSpecification):
         self.online_interpreter.reset()
 
     
+class AbstractOfflineSpecification(AbstractSpecification):
+    def __init__(self, ast, offlineInterpreter):
+        AbstractSpecification.__init__(self, ast)
+        self.name = 'Abstract Offline Specification'
+        self.offline_interpreter = offlineInterpreter
+
+    # forwarding to interpreter
+    def evaluate(self, *args, **kwargs):
+        if self.set_ast_flag != True:
+            self.offline_interpreter.set_ast(self.ast)
+            self.set_ast_flag = True
+
+        #TODO we may make it consistent with interpreter class.
+        # if isinstance(self.offline_interpreter, AbstractDenseTimeOfflineInterpreter):
+        #     if len(args) == 0:
+        #         raise Exception()
+        #     elif len(args) == 1:
+        #         dataset = [args[0]]
+        #     else:
+        #         dataset = []
+        #         for i in args:
+        #             dataset.append(i)
+        #     return self.offline_interpreter.evaluate(dataset)
+        # elif isinstance(self.offline_interpreter, AbstractDiscreteTimeOfflineInterpreter):
+            dataset = args[0]
+            return self.offline_interpreter.evaluate(dataset)
+        else:
+            raise Exception('Wrong interpreter!')
 
 
-    
+
+class AbstractOfflineOnlineSpecification(AbstractOfflineSpecification, AbstractOnlineSpecification):
+    def __init__(self, ast, offlineInterpreter, onlineInterpreter, pastifier=None):
+        AbstractOfflineSpecification.__init__(self, ast, offlineInterpreter)
+        AbstractOnlineSpecification.__init__(self, ast, onlineInterpreter, pastifier)
+        self.name = 'Abstract Offline Online Specification' 
     
     
         
