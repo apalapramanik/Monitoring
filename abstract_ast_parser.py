@@ -248,9 +248,9 @@ class AbstractAst:
         self.out_vars.discard(var)
         
     # atparservisitor class??
-    def ast_factory(AstParserVisitor):
-        class Ast(AbstractAst, AstParserVisitor):
-            def __init__(self, antrlLexerType, antrlParserType, parserErrorListenerType=None):
-                AbstractAst.__init__(self, antrlLexerType, antrlParserType, parserErrorListenerType)
-                AstParserVisitor.__init__(self)
-        return Ast
+def ast_factory(AstParserVisitor):
+    class Ast(AbstractAst, AstParserVisitor):
+        def __init__(self, antrlLexerType, antrlParserType, parserErrorListenerType=None):
+            AbstractAst.__init__(self, antrlLexerType, antrlParserType, parserErrorListenerType)
+            AstParserVisitor.__init__(self)
+    return Ast

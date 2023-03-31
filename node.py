@@ -1,5 +1,6 @@
 #import abc meta class from abc module: Abstract Base Class
 from abc import ABCMeta
+from enumerations import StlIOType
 
 class AbstractNode:
     
@@ -54,6 +55,41 @@ class BinaryNode(AbstractNode):
         
         
 ############################################################################################# from syntax > node > ltl
+
+class Always(UnaryNode):
+    """A class for storing STL Always nodes
+        Inherits TemporalNode
+    """
+
+    def __init__(self, child):
+        """Constructor for Always
+        Parameters:
+            child : stl.Node
+            bound : Interval
+        """
+        super(Always, self).__init__(child)
+
+        self.in_vars = child.in_vars
+        self.out_vars = child.out_vars
+
+        self.name = 'always(' + child.name + ')'
+        
+class Conjunction(BinaryNode):
+    """A class for storing STL Conjunction nodes
+        Inherits TemporalNode
+    """
+    def __init__(self, child1, child2):
+        """Constructor for Conjunction node
+            Parameters:
+                child1 : stl.Node
+                child2 : stl.Node
+        """
+        super(Conjunction, self).__init__(child1, child2)
+
+        self.in_vars = child1.in_vars + child2.in_vars
+        self.out_vars = child1.out_vars + child2.out_vars
+
+        self.name = '(' + child1.name + ')and(' + child2.name + ')'
 
 class Variable(LeafNode):
     """A class for storing STL real-valued Variable nodes
@@ -157,11 +193,234 @@ class Disjunction(BinaryNode):
 
         self.name = '(' + child1.name + ')or(' + child2.name + ')'
         
+class Eventually(UnaryNode):
+    """A class for storing STL Eventually nodes
+            Inherits TemporalNode
+    """
+    def __init__(self, child):
+        """Constructor for Eventually node
+        Parameters:
+            child : stl.Node
+            bound : Interval
+        """
+        super(Eventually, self).__init__(child)
+        self.in_vars = child.in_vars
+        self.out_vars = child.out_vars
+        self.name = 'eventually(' + child.name + ')'
+        
+class Fall(UnaryNode):
+    """A class for storing STL Neg nodes
+        Inherits Node
+    """
+    def __init__(self, child):
+        """Constructor for Neg node
+            Parameters:
+                child : stl.Node
+        """
+        super(Fall, self).__init__(child)
+        self.in_vars = child.in_vars
+        self.out_vars = child.out_vars
+
+        self.name = 'fall(' + child.name + ')'
+        
+class Historically(UnaryNode):
+    """A class for storing STL Historically nodes
+         Inherits TemporalNode
+    """
+    def __init__(self, child):
+        """Constructor for Historically node
+            Parameters:
+                child : stl.Node
+        """
+        super(Historically, self).__init__(child)
+        self.in_vars = child.in_vars
+        self.out_vars = child.out_vars
+        self.name = 'historically(' + child.name + ')'
+        
+class Iff(BinaryNode):
+    """A class for storing STL Iff nodes
+        Inherits TemporalNode
+    """
+    def __init__(self, child1, child2):
+        """Constructor for Iff node
+        Parameters:
+            child1 : stl.Node
+            child2 : stl.Node
+        """
+        super(Iff, self).__init__(child1, child2)
+
+        self.in_vars = child1.in_vars + child2.in_vars
+        self.out_vars = child1.out_vars + child2.out_vars
+
+        self.name = '(' + child1.name + ')<->(' + child2.name + ')'
+        
+class Implies(BinaryNode):
+    """A class for storing STL Implies nodes
+        Inherits TemporalNode
+    """
+    def __init__(self, child1, child2):
+        """Constructor for Implies node
+        Parameters:
+            child1 : stl.Node
+            child2 : stl.Node
+        """
+        super(Implies, self).__init__(child1, child2)
+
+        self.in_vars = child1.in_vars + child2.in_vars
+        self.out_vars = child1.out_vars + child2.out_vars
+
+        self.name = '(' + child1.name + ')->(' + child2.name + ')'
+        
+class Neg(UnaryNode):
+    """A class for storing STL Neg nodes
+        Inherits Node
+    """
+    def __init__(self, child):
+        """Constructor for Neg node
+            Parameters:
+                child : stl.Node
+        """
+        super(Neg, self).__init__(child)
+        self.add_child(child)
+        self.in_vars = child.in_vars
+        self.out_vars = child.out_vars
+
+        self.name = 'not(' + child.name + ')'
+        
+class Next(UnaryNode):
+    """A class for storing STL Next nodes
+        Inherits Node
+    """
+    def __init__(self, child):
+        """Constructor for Next node
+            Parameters:
+                child : stl.Node
+        """
+        super(Next, self).__init__(child)
+        self.in_vars = child.in_vars
+        self.out_vars = child.out_vars
+
+        self.name = 'next(' + child.name + ')'
+
+class Once(UnaryNode):
+    """A class for storing STL Once nodes
+                Inherits TemporalNode
+    """
+    def __init__(self, child):
+        """Constructor for Once node
+        Parameters:
+            child : stl.Node
+            bound : Interval
+        """
+
+        super(Once, self).__init__(child)
+        self.in_vars = child.in_vars
+        self.out_vars = child.out_vars
+        self.name = 'once(' + child.name + ')'
+
+class Predicate(BinaryNode):
+    """A class for storing STL real-valued Variable nodes
+                Inherits Node
+    Attributes:
+        child1 : Node
+        child2 : Node
+        operator : OperatorType (LEQ, GEQ, LESS, GREATER, EQ or NEQ)
+    """
+    def __init__(self, child1, child2, operator):
+        """Constructor for Predicate node
+        Parameters:
+            var : String
+            field : String
+            io_type : IOType enumeration (INPUT, OUTPUT or UNKNOWN)
+            operator : OperatorType (LEQ, GEQ, LESS, GREATER, EQ or NEQ)
+        """
+
+        super(Predicate, self).__init__(child1, child2)
+        self.operator = operator
+        self.in_vars = child1.in_vars + child2.in_vars
+        self.out_vars = child1.out_vars + child2.out_vars
+
+        self.name = '(' + child1.name + ')' + str(self.operator) + '(' + child2.name + ')'
+        
+class Previous(UnaryNode):
+    """A class for storing STL Previous nodes
+        Inherits Node
+    """
+    def __init__(self, child):
+        """Constructor for Previous node
+            Parameters:
+                child : stl.Node
+        """
+        super(Previous, self).__init__(child)
+        self.in_vars = child.in_vars
+        self.out_vars = child.out_vars
+
+        self.name = 'previous(' + child.name + ')'
 
 
-            
-    
-            
-    
-    
-    
+class Rise(UnaryNode):
+    """A class for storing STL Neg nodes
+        Inherits Node
+    """
+    def __init__(self, child):
+        """Constructor for Neg node
+            Parameters:
+                child : stl.Node
+        """
+        super(Rise, self).__init__(child)
+        self.in_vars = child.in_vars
+        self.out_vars = child.out_vars
+
+        self.name = 'rise(' + child.name + ')'
+        
+class Since(BinaryNode):
+    """A class for storing STL Since nodes
+                Inherits TemporalNode
+    """
+    def __init__(self, child1, child2):
+        """Constructor for Since node
+            Parameters:
+                child1 : stl.Node
+                child2 : stl.Node
+        """
+
+        super(Since, self).__init__(child1, child2)
+
+        self.in_vars = child1.in_vars + child2.in_vars
+        self.out_vars = child1.out_vars + child2.out_vars
+        self.name = '(' + child1.name + ')since(' + child2.name + ')'
+        
+class Until(BinaryNode):
+    """
+    A class for storing STL Since nodes
+    Inherits TemporalNode
+    """
+    def __init__(self, child1, child2):
+        """Constructor for Until node
+            Parameters:
+                child1 : stl.Node
+                child2 : stl.Node
+                bound : Interval
+        """
+        super(Until, self).__init__(child1, child2)
+
+        self.name = '(' + child1.name + ')until(' + child2.name + ')'
+
+        self.in_vars = child1.in_vars + child2.in_vars
+        self.out_vars = child1.out_vars + child2.out_vars
+        
+class Xor(BinaryNode):
+    """A class for storing STL Xor nodes
+        Inherits TemporalNode
+    """
+    def __init__(self, child1, child2):
+        """Constructor for Xor node
+        Parameters:
+            child1 : stl.Node
+            child2 : stl.Node
+        """
+        super(BinaryNode, self).__init__()
+        self.add_child(child1)
+        self.add_child(child2)
+
+        self.name = '(' + child1.name + ')xor(' + child2.name + ')'

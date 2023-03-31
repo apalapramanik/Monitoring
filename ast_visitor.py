@@ -6,8 +6,9 @@ import math
 import operator
 import collections
 from enumerations import StlComparisonOperator
+from ltl_ast_visitor import LtlAstVisitor
 
-class StlAstVisitor():
+class StlAstVisitor(LtlAstVisitor):
 
     def visit(self, node, *args, **kwargs):
         if isinstance(node, TimedUntil):
