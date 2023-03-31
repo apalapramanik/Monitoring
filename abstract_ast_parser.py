@@ -272,4 +272,5 @@ def ast_factory(AstParserVisitor):
         def __init__(self, antrlLexerType, antrlParserType, parserErrorListenerType=None):
             AbstractAst.__init__(self, antrlLexerType, antrlParserType, parserErrorListenerType)
             AstParserVisitor.__init__(self)
+            print("done ast_factory")
     return Ast

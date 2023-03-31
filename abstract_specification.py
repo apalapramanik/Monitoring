@@ -19,10 +19,10 @@ class AbstractSpecification(object):
         self.var_topic_dict = dict()
         self.free_vars = set()
         self.var_object_dict = dict()
+        self.modules = dict()
         print(self.name)
 
-        #TODO we need to move it to RTAMT4ROS as wrapper
-        self.modules = dict()
+        
 
     @property
     def name(self):

@@ -3,6 +3,7 @@
 from ast_visitor import StlAstVisitor
 # from rtamt.pastifier.ltl.horizon import LtlHorizon
 from stl_temporal_nodes import *
+from ltl_pastifier import *
 
 from exception import MonException
 
@@ -10,8 +11,8 @@ from exception import MonException
 class StlHorizon(StlAstVisitor):
 
     def __init__(self):
-        # LtlHorizon.__init__(self)
-        pass
+        LtlHorizon.__init__(self)
+        
 
     def visit(self, node, *args, **kwargs):
         return StlAstVisitor.visit(self, node, *args, **kwargs)
@@ -56,11 +57,13 @@ class StlHorizon(StlAstVisitor):
 class StlPastifier(StlAstVisitor):
 
     def __init__(self):
-        # LtlPastifier.__init__(self)
-        pass
+        LtlPastifier.__init__(self)
+        print("init stl pastifier")
+      
 
     def pastify(self, ast):
         h = StlHorizon()
+        print("pastify funct")
         horizons = dict()
         for spec in ast.specs:
             horizon = h.visit(spec, None)
