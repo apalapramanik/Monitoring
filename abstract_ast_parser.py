@@ -93,14 +93,37 @@ class AbstractAst:
     def parse(self):
         if self.spec is None:
             raise MonException('STL specification if empty')
-        
+
+        #TODO How to handle sub-formulas?
         entire_spec = self.modular_spec + self.spec
         input_stream = InputStream(entire_spec)
         lexer = self.antrlLexerType(input_stream)
+        if not isinstance(lexer, Lexer):
+            raise MonException('{} is not ANTRL4 Lexer'.format(lexer.__class__.__name__))
         stream = CommonTokenStream(lexer)
         parser = self.antrlParserType(stream)
+        if not isinstance(parser, Parser):
+            raise MonException('{} is not ANTRL4 Parser'.format(parser.__class__.__name__))
+        if self.parserErrorListenerType != None:
+            parser._listeners = [self.parserErrorListenerType()]
+            if not isinstance(parser._listeners[0], ErrorListener):
+                raise MonException('{} is not ANTRL4 ErrorListener'.format(parser._listeners[0].__class__.__name__))
         ctx = parser.specification_file()
         self.visit(ctx.specification())
+        return
+
+    
+    # def parse(self):
+    #     if self.spec is None:
+    #         raise MonException('STL specification if empty')
+        
+    #     entire_spec = self.modular_spec + self.spec
+    #     input_stream = InputStream(entire_spec)
+    #     lexer = self.antrlLexerType(input_stream)
+    #     stream = CommonTokenStream(lexer)
+    #     parser = self.antrlParserType(stream)
+    #     ctx = parser.specification_file()
+    #     self.visit(ctx.specification())
         return
     
     ##################################################################3
@@ -272,5 +295,6 @@ def ast_factory(AstParserVisitor):
         def __init__(self, antrlLexerType, antrlParserType, parserErrorListenerType=None):
             AbstractAst.__init__(self, antrlLexerType, antrlParserType, parserErrorListenerType)
             AstParserVisitor.__init__(self)
-            print("done ast_factory")
+            print(AstParserVisitor)
+            
     return Ast

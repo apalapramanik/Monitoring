@@ -28,5 +28,5 @@ def StlAst():
     print(parserErrorListenerType)
     stlAst = ast_factory(StlAstParserVisitor)(antrlLexerType, antrlParserType, parserErrorListenerType)
     stlAst = ast_factory(StlAstParserVisitor)(antrlLexerType, antrlParserType, parserErrorListenerType)
-    print("here toooooo")
+    print(stlAst)
     return stlAst

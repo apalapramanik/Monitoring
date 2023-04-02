@@ -1,10 +1,11 @@
 from decimal import Decimal
 from fractions import Fraction
 from stl_temporal_nodes import *
-from antlr.stlParserVisitor import stlParserVisitor
+from antlr.stlParserVisitor import *
 from node import *
+from ltl_ast_visitor import LtlAstParserVisitor
 
-class StlAstParserVisitor(stlParserVisitor):
+class StlAstParserVisitor(LtlAstParserVisitor, stlParserVisitor):
 
     def __init__(self):
         stlParserVisitor.__init__(self)
