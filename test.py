@@ -30,7 +30,7 @@ def monitor():
     # print("Specification instance created:", spec.name)
     spec.declare_var('a', 'float')
     spec.declare_var('b', 'float')
-    spec.spec = 'eventually[0,1](a >= b)'
+    spec.spec = 'eventually[0,2](a >= b)'
 
     try:
         spec.parse()
@@ -39,7 +39,9 @@ def monitor():
         print('RTAMT Exception: {}'.format(err))
         sys.exit()
 
-    rob = spec.update(0, [('a', 100.0), ('b', 20.0)])
+    rob= spec.update(0, [('a', 100.0), ('b', 20.0)])
+    # print(rob)
+    
     print('time=' + str(0) + ' rob=' + str(rob))
 
     rob = spec.update(1, [('a', -1.0), ('b', 2.0)])

@@ -477,14 +477,14 @@ class LtlAstParserVisitor(ltlParserVisitor):
 
     def str_to_op_type(self, input):
         if input == "<":
-            return self.comp_op_mod.StlComparisonOperator.LESS
+            return input == StlComparisonOperator.LESS
         elif input == '<=':
-            return self.comp_op_mod.StlComparisonOperator.LEQ
+            return input == StlComparisonOperator.LEQ
         elif input == ">=":
             return input == StlComparisonOperator.GEQ
         elif input == ">":
-            return self.comp_op_mod.StlComparisonOperator.GREATER
+            return input == StlComparisonOperator.GREATER
         elif input == "==":
-            return self.comp_op_mod.StlComparisonOperator.EQUAL
+            return input == StlComparisonOperator.EQUAL
         else:
-            return self.comp_op_mod.StlComparisonOperator.NEQ
+            return input == StlComparisonOperator.NEQ

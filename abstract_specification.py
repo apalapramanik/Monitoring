@@ -285,9 +285,12 @@ class AbstractOnlineSpecification(AbstractSpecification):
         #             dataset.append(i)
         #     return self.online_interpreter.update(dataset)
         # el
+                  
         if isinstance(self.online_interpreter, AbstractDiscreteTimeOnlineInterpreter):
             i = args[0]
+            # print(i)
             dataset = args[1]
+            # print(dataset)
             return self.online_interpreter.update(i, dataset)
         else:
             pass
