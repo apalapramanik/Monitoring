@@ -10,6 +10,14 @@ class BooleanOperator(Enum):
 class StlComparisonOperator(Enum):
     LESS = 0
     LEQ = 1
+    EQ = 2
+    NEQ = 3
+    GREATER = 4
+    GEQ = 5
+    
+class StlComparisonOperator(Enum):
+    LESS = 0
+    LEQ = 1
     EQUAL = 2
     NEQ = 3
     GREATER = 4

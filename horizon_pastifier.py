@@ -8,7 +8,7 @@ from ltl_pastifier import *
 from exception import MonException
 
 
-class StlHorizon(StlAstVisitor):
+class StlHorizon(LtlHorizon,StlAstVisitor):
 
     def __init__(self):
         LtlHorizon.__init__(self)
@@ -58,12 +58,12 @@ class StlPastifier(StlAstVisitor):
 
     def __init__(self):
         LtlPastifier.__init__(self)
-        print("init stl pastifier")
+        # print("init stl pastifier")
       
 
     def pastify(self, ast):
         h = StlHorizon()
-        print("pastify funct")
+        # print("pastify funct")
         horizons = dict()
         for spec in ast.specs:
             horizon = h.visit(spec, None)

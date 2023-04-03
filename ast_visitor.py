@@ -191,7 +191,7 @@ class StlDiscreteTimeOnlineAstVisitor(StlAstVisitor):
 
 def StlDiscreteTimeOnlineInterpreter():
     stlDiscreteTimeOnlineInterpreter = discrete_time_online_interpreter_factory(StlDiscreteTimeOnlineAstVisitor)()
-    print(stlDiscreteTimeOnlineInterpreter)
+    # print(stlDiscreteTimeOnlineInterpreter)
     return stlDiscreteTimeOnlineInterpreter
 
 
@@ -599,5 +599,5 @@ class StlDiscreteTimeOfflineAstVisitor(StlAstVisitor):
     
 def StlDiscreteTimeOfflineInterpreter():
     stlDiscreteTimeOfflineInterpreter = discrete_time_offline_interpreter_factory(StlDiscreteTimeOfflineAstVisitor)()
-    print(stlDiscreteTimeOfflineInterpreter)
+    # print(stlDiscreteTimeOfflineInterpreter)
     return stlDiscreteTimeOfflineInterpreter

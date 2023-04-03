@@ -19,13 +19,15 @@ from stl_specification import *
 from stl_temporal_nodes import *
 from time_interpreter import *
 from abstract_ast_parser import AbstractAst
+from ltl_ast_visitor import *
+from ltl_pastifier import *
 
 
 
 def monitor():
     # # stl
     spec = StlDiscreteTimeSpecification()
-    print("Specification instance created:", spec.name)
+    # print("Specification instance created:", spec.name)
     spec.declare_var('a', 'float')
     spec.declare_var('b', 'float')
     spec.spec = 'eventually[0,1](a >= b)'

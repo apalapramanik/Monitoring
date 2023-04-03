@@ -7,18 +7,13 @@ class AbstractNode:
     __metaclass__ = ABCMeta
     
     def __init__(self):
-        
-        """
-        declare instance variables to store information about the instance of the class
-        
-        """
-        self.input_variable = []
-        self.output_variable = []
+        self.in_vars = []
+        self.out_vars = []
         self.children = list()
         self.interpreter = None
         self.name = ''
         self.node = None
-    
+        
     def add_child(self, child):
         self.children.append(child)
      

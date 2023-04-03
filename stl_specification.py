@@ -12,7 +12,4 @@ def StlDiscreteTimeSpecification(semantics=Semantics.STANDARD, language=Language
         spec = AbstractOfflineOnlineSpecification(StlAst(), StlDiscreteTimeOfflineInterpreter(),
                                                 StlDiscreteTimeOnlineInterpreter(),
                                                 pastifier=StlPastifier())
-    
-    else:
-        raise Exception()
     return spec

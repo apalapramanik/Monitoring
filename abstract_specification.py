@@ -23,7 +23,7 @@ class AbstractSpecification(object):
         self.free_vars = set()
         self.var_object_dict = dict()
         self.modules = dict()
-        print(self.name)
+        # print(self.name)
 
         
 
@@ -228,7 +228,7 @@ class AbstractOfflineSpecification(AbstractSpecification):
         AbstractSpecification.__init__(self, ast)
         self.name = 'Abstract Offline Specification'
         self.offline_interpreter = offlineInterpreter
-        print(self.name)
+        # print(self.name)
 
     # forwarding to interpreter
     def evaluate(self, *args, **kwargs):
@@ -261,7 +261,7 @@ class AbstractOnlineSpecification(AbstractSpecification):
         self.name = 'Abstract Online Specification'
         self.online_interpreter = onlineInterpreter
         self.pastifier = pastifier
-        print(self.name)
+        # print(self.name)
 
     # forwarding pastify
     def pastify(self):
@@ -320,7 +320,7 @@ class AbstractOfflineOnlineSpecification(AbstractOfflineSpecification, AbstractO
         AbstractOfflineSpecification.__init__(self, ast, offlineInterpreter)
         AbstractOnlineSpecification.__init__(self, ast, onlineInterpreter, pastifier)
         self.name = 'Abstract Offline Online Specification'
-        print("hiiii")
+        # print("hiiii")
 
 
 
@@ -329,7 +329,7 @@ class AbstractOfflineOnlineSpecification(AbstractOfflineSpecification, AbstractO
         AbstractOfflineSpecification.__init__(self, ast, offlineInterpreter)
         AbstractOnlineSpecification.__init__(self, ast, onlineInterpreter, pastifier)
         self.name = 'Abstract Offline Online Specification'
-        print(self.name)
+        # print(self.name)
     
 
 def StlDiscreteTimeOfflineSpecification():

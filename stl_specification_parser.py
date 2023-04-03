@@ -21,12 +21,12 @@ class STLParserErrorListener( ErrorListener ):
 
 def StlAst():
     antrlLexerType = globals()['stlLexer']
-    print(antrlLexerType)
+    # print(antrlLexerType)
     antrlParserType = globals()['stlParser']
-    print(antrlParserType)
+    # print(antrlParserType)
     parserErrorListenerType = globals()['STLParserErrorListener']   #optional
-    print(parserErrorListenerType)
+    # print(parserErrorListenerType)
     stlAst = ast_factory(StlAstParserVisitor)(antrlLexerType, antrlParserType, parserErrorListenerType)
     stlAst = ast_factory(StlAstParserVisitor)(antrlLexerType, antrlParserType, parserErrorListenerType)
-    print(stlAst)
+    # print(stlAst)
     return stlAst

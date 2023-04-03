@@ -5,6 +5,7 @@ import logging
 import operator
 from antlr.ltlParserVisitor import ltlParserVisitor
 from antlr4 import *
+from enumerations import *
 
 
 class LtlAstVisitor(AbstractAstVisitor):
@@ -480,7 +481,7 @@ class LtlAstParserVisitor(ltlParserVisitor):
         elif input == '<=':
             return self.comp_op_mod.StlComparisonOperator.LEQ
         elif input == ">=":
-            return self.comp_op_mod.StlComparisonOperator.GEQ
+            return input == StlComparisonOperator.GEQ
         elif input == ">":
             return self.comp_op_mod.StlComparisonOperator.GREATER
         elif input == "==":
