@@ -1,6 +1,4 @@
 import sys
-
-
 from antlr import *
 from abstract_ast_parser import *
 from abstract_specification import *
@@ -35,17 +33,17 @@ def monitor_a():
         spec.parse()
         spec.pastify()
     except MonException as err:
-        print('RTAMT Exception: {}'.format(err))
+        print('Mon Exception: {}'.format(err))
         sys.exit()
 
     rob= spec.update(0, [('a', 10.0), ('b', 20.0)])  
     print('time=' + str(0) + ' rob=' + str(rob))
 
     rob = spec.update(1, [('a', -1.0), ('b', 2.0)])
-    print('time=' + str(0) + ' rob=' + str(rob))
+    print('time=' + str(1) + ' rob=' + str(rob))
 
     rob = spec.update(2, [('a', -2.0), ('b', -10.0)])
-    print('time=' + str(0) + ' rob=' + str(rob))
+    print('time=' + str(2) + ' rob=' + str(rob))
 
 # 
 def monitor_b():
@@ -74,5 +72,5 @@ def monitor_b():
 
 if __name__ == '__main__':
     # Process arguments
-
+    monitor_a()
     monitor_b()
