@@ -7,13 +7,13 @@ class BooleanOperator(Enum):
     IFF = 3
     XOR = 4
     
-class StlComparisonOperator(Enum):
-    LESS = 0
-    LEQ = 1
-    EQ = 2
-    NEQ = 3
-    GREATER = 4
-    GEQ = 5
+# class StlComparisonOperator(Enum):
+#     LESS = 0
+#     LEQ = 1
+#     EQ = 2
+#     NEQ = 3
+#     GREATER = 4
+#     GEQ = 5
     
 class StlComparisonOperator(Enum):
     LESS = 0

@@ -1,6 +1,6 @@
 import sys
 
-import antlr4
+
 from antlr import *
 from abstract_ast_parser import *
 from abstract_specification import *
@@ -24,13 +24,12 @@ from ltl_pastifier import *
 
 
 
-def monitor():
+def monitor_a():
     # # stl
     spec = StlDiscreteTimeSpecification()
-    # print("Specification instance created:", spec.name)
     spec.declare_var('a', 'float')
     spec.declare_var('b', 'float')
-    spec.spec = 'eventually[0,2](a >= b)'
+    spec.spec = 'eventually[0,1](a >= b)'
 
     try:
         spec.parse()
@@ -39,9 +38,7 @@ def monitor():
         print('RTAMT Exception: {}'.format(err))
         sys.exit()
 
-    rob= spec.update(0, [('a', 100.0), ('b', 20.0)])
-    # print(rob)
-    
+    rob= spec.update(0, [('a', 10.0), ('b', 20.0)])  
     print('time=' + str(0) + ' rob=' + str(rob))
 
     rob = spec.update(1, [('a', -1.0), ('b', 2.0)])
@@ -50,5 +47,32 @@ def monitor():
     rob = spec.update(2, [('a', -2.0), ('b', -10.0)])
     print('time=' + str(0) + ' rob=' + str(rob))
 
+# 
+def monitor_b():
+    # data
+    dataSet = {
+         'time': [0, 1, 2],
+         'a': [100.0, -1.0, -2.0],
+         'b': [20.0, 2.0, -10.0]
+    }
+
+    # # stl
+    spec = StlDiscreteTimeSpecification()
+    spec.name = 'STL discrete-time online Python monitor'
+    spec.declare_var('a', 'float')
+    spec.declare_var('b', 'float')
+    spec.spec = 'a + b >= - 2'
+
+    try:
+        spec.parse()
+    except MonException as err:
+        print('STL Parse Exception: {}'.format(err))
+        sys.exit()
+
+    rob = spec.evaluate(dataSet)
+    print('Robustness: ' + str(rob))
+
 if __name__ == '__main__':
-    monitor()
+    # Process arguments
+
+    monitor_b()

@@ -5,7 +5,7 @@ from interpreters import *
 import math
 import operator
 import collections
-from enumerations import StlComparisonOperator
+from enumerations import *
 from ltl_ast_visitor import LtlAstVisitor
 
 class StlAstVisitor(LtlAstVisitor):
@@ -206,7 +206,8 @@ class StlDiscreteTimeOfflineAstVisitor(StlAstVisitor):
 
         sample_return = []
         for i in range(len(sample_left)):
-            if node.operator.value == StlComparisonOperator.EQ.value:
+            
+            if node.operator.value == StlComparisonOperator.EQUAL.value:
                 val = -abs(sample_left[i] - sample_right[i])
             elif node.operator.value == StlComparisonOperator.NEQ.value:
                 val = abs(sample_left[i] - sample_right[i])
