@@ -176,7 +176,7 @@ class StlDiscreteTimeOnlineAstVisitor(StlAstVisitor):
         self.visitChildren(node, *args, **kwargs)
         begin, end = self.time_unit_transformer(node)
         self.online_operator_dict[node.name] = SinceTimedOperation(begin, end)
-#************************************apala implemented this  ****************************************************************
+#************************************************************************************apala implement this  ****************************************************************
     def visitTimedAlways(self, node, *args, **kwargs):
         self.visitChildren(node, *args, **kwargs)
         begin, end = self.time_unit_transformer(node)

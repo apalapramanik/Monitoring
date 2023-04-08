@@ -94,11 +94,32 @@ def monitor():
     except MonException as err:
         print('RTAMT Exception: {}'.format(err))
         sys.exit()
+        
+def monitor_d():
+    # # stl
+    spec = StlDiscreteTimeSpecification()
+    spec.declare_var('a', 'float')
+    spec.declare_var('b', 'float')
+    spec.spec = 'eventually[0,1](a >= b)'
+
+    try:
+        spec.parse()
+        # spec.pastify()
+    except MonException as err:
+        print('Mon Exception: {}'.format(err))
+        sys.exit()
+        
+    a = [2.0, 4.0, 6.0, 8.0, 10.0]
+    
+    rob = spec.update(0, [('a', a), ('b', 2.0)])
+    print('time=' + str(0) + ' rob=' + str(rob))
+
+    
 
 
 if __name__ == '__main__':
     # Process arguments
-    monitor_a()
+    monitor_d()
   
 
 
