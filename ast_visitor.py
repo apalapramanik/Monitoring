@@ -176,17 +176,24 @@ class StlDiscreteTimeOnlineAstVisitor(StlAstVisitor):
         self.visitChildren(node, *args, **kwargs)
         begin, end = self.time_unit_transformer(node)
         self.online_operator_dict[node.name] = SinceTimedOperation(begin, end)
-
+#************************************apala implemented this  ****************************************************************
     def visitTimedAlways(self, node, *args, **kwargs):
-        raise MonException('Bounded always operator not implemented in STL online monitor.')
+        self.visitChildren(node, *args, **kwargs)
+        begin, end = self.time_unit_transformer(node)
+        self.online_operator_dict[node.name] = AlwaysTimedOperation(begin, end)
+        
+        # raise MonException('Bounded always operator not implemented in STL online monitor.')
 
     def visitTimedEventually(self, node, *args, **kwargs):
-        raise MonException('Bounded eventually operator not implemented in STL online monitor.')
+        self.visitChildren(node, *args, **kwargs)
+        begin, end = self.time_unit_transformer(node)
+        self.online_operator_dict[node.name] = EventuallyTimedOperation(begin, end)
+        # raise MonException('Bounded eventually operator not implemented in STL online monitor.')
 
-    def visitTimedUntil(self, node, *args, **kwargs):
-        raise MonException('Bounded until operator not implemented in STL online monitor.')
+    # def visitTimedUntil(self, node, *args, **kwargs):
+        
     
-
+#***************************************************************************************************************************************
 ################################# semantics > stl > discrete_time > online > interpreter.py #######################################
 
 def StlDiscreteTimeOnlineInterpreter():

@@ -66,14 +66,17 @@ class StlPastifier(StlAstVisitor):
         # print("pastify funct")
         horizons = dict()
         for spec in ast.specs:
+            # print(spec)
             horizon = h.visit(spec, None)
             horizons[spec] = horizon
+            # print("horizon",horizon)
         pastified_specs = []
         for spec in ast.specs:
             horizon = horizons[spec]
             pastified_spec = self.visit(spec, horizon)
             pastified_specs.append(pastified_spec)
         ast.specs = pastified_specs
+        # print("pastified specs", ast.specs)
         return ast
 
     def visit(self, node, *args, **kwargs):

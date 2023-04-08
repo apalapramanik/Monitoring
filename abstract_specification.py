@@ -114,6 +114,7 @@ class AbstractSpecification(object):
 
     def parse(self):
         self.ast.parse()
+        # print("parse output:", self.ast.parse())
 
     # forwarding to interpreter
     def set_sampling_period(self, sampling_period=int(1), unit='s', tolerance=float(0.1)):

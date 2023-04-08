@@ -120,7 +120,51 @@ class HistoricallyTimedOperation(AbstractOnlineOperation):
         for i in range(self.end-self.begin+1):
             sample_return = min(sample_return, self.buffer[i])
         return sample_return
+    
+#************************************************************************apala implement this ******************************************************************************************
+class AlwaysTimedOperation(AbstractOnlineOperation):
+    #historically timed
+    def __init__(self, begin, end):
+        self.begin = begin
+        self.end = end
+        self.buffer = collections.deque(maxlen=(self.end + 1))
 
+        self.reset()
+
+    def reset(self):
+        for i in range(self.end + 1):
+            val = float("inf")
+            self.buffer.append(val)
+
+    def update(self, sample):
+        self.buffer.append(sample)
+        sample_return = float("inf")
+        for i in range(self.end-self.begin+1):
+            sample_return = min(sample_return, self.buffer[i])
+        return sample_return
+
+class EventuallyTimedOperation(AbstractOnlineOperation):
+    #once timed
+    def __init__(self, begin, end):
+        self.begin = begin
+        self.end = end
+        self.buffer = collections.deque(maxlen=(self.end + 1))
+
+        self.reset()
+
+    def reset(self):
+        for i in range(self.end + 1):
+            val = - float("inf")
+            self.buffer.append(val)
+
+    def update(self, sample):
+        self.buffer.append(sample)
+        sample_return = -float("inf")
+        for i in range(self.end-self.begin+1):
+            sample_return = max(sample_return, self.buffer[i])
+        return sample_return
+    
+########################################################################################################################################################################################
 class IffOperation(AbstractOnlineOperation):
     def __init__(self):
         pass
@@ -237,7 +281,7 @@ class PredicateOperation(AbstractOnlineOperation):
         pass
 
     def update(self, sample_left, sample_right):
-        if self.comparison_op.value == StlComparisonOperator.EQ.value:
+        if self.comparison_op.value == StlComparisonOperator.EQUAL.value:
             sample_return = - abs(sample_left - sample_right)
         elif self.comparison_op.value == StlComparisonOperator.NEQ.value:
             sample_return = abs(sample_left - sample_right)
@@ -251,7 +295,7 @@ class PredicateOperation(AbstractOnlineOperation):
         return sample_return
 
     def sat(self, sample_left, sample_right):
-        if self.comparison_op.value == StlComparisonOperator.EQ.value:
+        if self.comparison_op.value == StlComparisonOperator.EQUAL.value:
             sample_return = sample_left == sample_right
         elif self.comparison_op.value == StlComparisonOperator.NEQ.value:
             sample_return = sample_left != sample_right

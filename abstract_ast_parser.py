@@ -96,6 +96,7 @@ class AbstractAst:
 
         #TODO How to handle sub-formulas?
         entire_spec = self.modular_spec + self.spec
+        # print("entire spec:", entire_spec)
         input_stream = InputStream(entire_spec)
         lexer = self.antrlLexerType(input_stream)
         if not isinstance(lexer, Lexer):
@@ -124,7 +125,7 @@ class AbstractAst:
     #     parser = self.antrlParserType(stream)
     #     ctx = parser.specification_file()
     #     self.visit(ctx.specification())
-        return
+        # return
     
     ##################################################################3
     
@@ -296,5 +297,5 @@ def ast_factory(AstParserVisitor):
             AbstractAst.__init__(self, antrlLexerType, antrlParserType, parserErrorListenerType)
             AstParserVisitor.__init__(self)
             # print(AstParserVisitor)
-            
+         
     return Ast

@@ -85,24 +85,31 @@ class AbstractAstVisitor(object):
     def visitChildren(self, node, *args, **kwargs):
         result = None
         for nodeChild in node.children:
-            result = self.visit(nodeChild, *args, **kwargs)
+            # print("node children:", nodeChild)
+            result = self.visit(nodeChild, *args, **kwargs)  
+        # print(result)    
         return result   # visitChildren reterns only last result
 
     def visit(self, node, *args, **kwargs):
         if isinstance(node, BinaryNode):
             result = self.visitBinary(node, *args, **kwargs)
+            # print("node type b:",result)
         elif isinstance(node, UnaryNode):
             result = self.visitUnary(node, *args, **kwargs)
+            # print("node type u:",result)
         elif isinstance(node, LeafNode):
             result = self.visitLeaf(node, *args, **kwargs)
+            # print("node type l:",result)
         else:
             raise MonException('{} is not RTAMT AST node'.format(node.__class__.__name__))
         return result
 
     def visitAst(self, ast, *args, **kwargs):
         out = []
+        # print("ast.spec:", ast.spec)
         for spec in ast.specs:
             out.append(self.visit(spec, *args, **kwargs))
+        # print(out)
         return out
 
     def visitSpec(self, node, *args, **kwargs):
@@ -122,6 +129,7 @@ class AbstractOnlineResetVisitor(AbstractAstVisitor):
     def visitBinary(self, node, online_operator_dict):
         self.visitChildren(node, online_operator_dict)
         operator = online_operator_dict[node.name]
+        # print("operator",operator)
         operator.reset()
         return
 

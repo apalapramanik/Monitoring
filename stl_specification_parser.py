@@ -27,6 +27,6 @@ def StlAst():
     parserErrorListenerType = globals()['STLParserErrorListener']   #optional
     # print(parserErrorListenerType)
     stlAst = ast_factory(StlAstParserVisitor)(antrlLexerType, antrlParserType, parserErrorListenerType)
-    stlAst = ast_factory(StlAstParserVisitor)(antrlLexerType, antrlParserType, parserErrorListenerType)
+    # stlAst = ast_factory(StlAstParserVisitor)(antrlLexerType, antrlParserType, parserErrorListenerType)
     # print(stlAst)
     return stlAst
