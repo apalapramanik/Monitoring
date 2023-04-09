@@ -98,9 +98,11 @@ def monitor():
 def monitor_d():
     # # stl
     spec = StlDiscreteTimeSpecification()
-    spec.declare_var('a', 'float')
-    spec.declare_var('b', 'float')
-    spec.spec = 'eventually[0,1](a >= b)'
+    spec.declare_var('pred', 'float')
+    spec.declare_var('dist', 'float')
+    spec.spec = '(always[0,3](pred >= dist)) implies (eventually[3,4](pred < dist))'
+    #(always[0,3](a >= b)) implies (eventually[3,4](a < b))
+
 
     try:
         spec.parse()
@@ -109,10 +111,10 @@ def monitor_d():
         print('Mon Exception: {}'.format(err))
         sys.exit()
         
-    a = [2.0, 4.0, 6.0, 8.0, 10.0]
+    prediction = [10.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0]
     
-    rob = spec.update(0, [('a', a), ('b', 2.0)])
-    print('time=' + str(0) + ' rob=' + str(rob))
+    rob = spec.update(0, [('pred', prediction), ('dist', 2.0)])
+    print('time = ' + str(0) + ',  robustness = ' + str(rob))
 
     
 

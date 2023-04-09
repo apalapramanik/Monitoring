@@ -137,11 +137,23 @@ class AlwaysTimedOperation(AbstractOnlineOperation):
             self.buffer.append(val)
 
     def update(self, sample):
-        self.buffer.append(sample)
+        # self.buffer.append(sample)
+        # sample_return = float("inf")
+        # for i in range(self.end-self.begin+1):
+        #     sample_return = min(sample_return, self.buffer[i])
+        # return sample_return
+    
+        # print("begin:", self.begin, "end:", self.end)
+        self.buffer.extendleft(sample[self.begin:self.end+1])
+       
         sample_return = float("inf")
-        for i in range(self.end-self.begin+1):
-            sample_return = min(sample_return, self.buffer[i])
+        for i in range(self.end - self.begin + 1):
+            sample_range = list(self.buffer)[self.begin + i:self.end + i + 1] # get the range of samples
+            # print(sample_range)
+            sample_return = min(sample_return, min(sample_range)) # calculate the maximum value in the range
         return sample_return
+        
+
 
 class EventuallyTimedOperation(AbstractOnlineOperation):
     #once timed
@@ -157,11 +169,17 @@ class EventuallyTimedOperation(AbstractOnlineOperation):
             val = - float("inf")
             self.buffer.append(val)
 
+
     def update(self, sample):
-        self.buffer.append(sample)
+       
+        # print("begin:", self.begin, "end:", self.end)
+        self.buffer.extendleft(sample[self.begin:self.end+1])
+       
         sample_return = -float("inf")
-        for i in range(self.end-self.begin+1):
-            sample_return = max(sample_return, self.buffer[i])
+        for i in range(self.end - self.begin + 1):
+            sample_range = list(self.buffer)[self.begin + i:self.end + i + 1] # get the range of samples
+            # print(sample_range)
+            sample_return = max(sample_return, max(sample_range)) # calculate the maximum value in the range
         return sample_return
     
 ########################################################################################################################################################################################
@@ -280,7 +298,7 @@ class PredicateOperation(AbstractOnlineOperation):
     def reset(self):
         pass
 
-    def update(self, sample_left, sample_right):
+    def compute(self, sample_left, sample_right):
         if self.comparison_op.value == StlComparisonOperator.EQUAL.value:
             sample_return = - abs(sample_left - sample_right)
         elif self.comparison_op.value == StlComparisonOperator.NEQ.value:
@@ -293,7 +311,34 @@ class PredicateOperation(AbstractOnlineOperation):
             raise MonException('Unknown predicate operation')
 
         return sample_return
+   #*************************added by apala ************************************************************************************************************************************ 
+   
+    def update(self, sample_left, sample_right):
+        
+        if isinstance(sample_left, list) and isinstance(sample_right, list):
+            # Both samples are lists
+            if len(sample_left) != len(sample_right):
+                raise ValueError('Sample lists must have the same length')
+            sample_return = []
+            for i in range(len(sample_left)):
+                sample_return.append(self.compute(sample_left[i], sample_right[i]))
+        elif isinstance(sample_left, list):
+            # Only the left sample is a list
+            sample_return = []
+            for i in range(len(sample_left)):
+                sample_return.append(self.compute(sample_left[i], sample_right))
+        elif isinstance(sample_right, list):
+            # Only the right sample is a list
+            sample_return = []
+            for i in range(len(sample_right)):
+                sample_return.append(self.compute(sample_left, sample_right[i]))
+        else:
+            # Neither sample is a list
+            sample_return = self.compute(sample_left, sample_right)
 
+        return sample_return
+        
+#**********************************************************************************************************************************************************************************
     def sat(self, sample_left, sample_right):
         if self.comparison_op.value == StlComparisonOperator.EQUAL.value:
             sample_return = sample_left == sample_right
