@@ -101,6 +101,7 @@ def monitor_d():
     spec.declare_var('pred', 'float')
     spec.declare_var('dist', 'float')
     spec.spec = '(always[0,3](pred >= dist)) implies (eventually[3,4](pred < dist))'
+    
     #(always[0,3](a >= b)) implies (eventually[3,4](a < b))
 
 
