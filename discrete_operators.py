@@ -148,11 +148,11 @@ class AlwaysTimedOperation(AbstractOnlineOperation):
         # print(self.buffer)
         sample_return = min(self.buffer)
        
-        # sample_return = float("inf")
-        # for i in range(self.end - self.begin + 1):
-        #     sample_range = list(self.buffer)[self.begin + i:self.end + i + 1] # get the range of samples
-        #     # print(sample_range)
-        #     sample_return = min(sample_return, min(sample_range)) # calculate the maximum value in the range
+        sample_return = float("inf")
+        for i in range(self.end - self.begin + 1):
+            sample_range = list(self.buffer)[self.begin + i:self.end + i + 1] # get the range of samples
+            # print(sample_range)
+            sample_return = min(sample_return, min(sample_range)) # calculate the maximum value in the range
         return sample_return
         
 
@@ -180,11 +180,11 @@ class EventuallyTimedOperation(AbstractOnlineOperation):
         # print(self.buffer)
         sample_return = max(self.buffer)
        
-        # sample_return = -float("inf")
-        # for i in range(self.end - self.begin + 1):
-        #     sample_range = list(self.buffer)[self.begin + i:self.end + i + 1] # get the range of samples
-        #     print(sample_range)
-        #     sample_return = max(sample_return, max(sample_range)) # calculate the maximum value in the range
+        sample_return = -float("inf")
+        for i in range(self.end - self.begin + 1):
+            sample_range = list(self.buffer)[self.begin + i:self.end + i + 1] # get the range of samples
+            # print(sample_range)
+            sample_return = max(sample_return, max(sample_range)) # calculate the maximum value in the range
         return sample_return
     
 ########################################################################################################################################################################################
