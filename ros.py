@@ -49,12 +49,13 @@ def monitor(stl_arg, period_arg, unit_arg):
     freq = spec.get_sampling_frequency()
 
     spec.spec = spec.get_spec_from_file(filename)
+    spec.parse()
 
-    try:
-        spec.parse()
-    except STLParseException as err:
-        print('STL Parse Exception: {}'.format(err))
-        sys.exit()
+    # try:
+    #     spec.parse()
+    # except STLParseException as err:
+    #     print('STL Parse Exception: {}'.format(err))
+    #     sys.exit()
 
     # Initialize the ROS node with the name coming from the specification file
     rospy.init_node(spec.name, anonymous=True)

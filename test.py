@@ -74,33 +74,14 @@ def monitor_b():
 
 
 
-# def monitor():
-#     spec = StlDiscreteTimeSpecification()
-#     spec.name = 'Bounded-response Request-Grant'
-
-#     spec.declare_var('req', 'float')
-#     spec.declare_var('gnt', 'float')
-#     spec.declare_var('out', 'float')
-
-#     spec.spec = 'out = (req>=3) implies (eventually[0:5](gnt>=3))'
-
-#     try:
-#         spec.parse()
-#         # spec.pastify()
-#         spec.update(0, [('req', 0.1), ('gnt', 0.3)])
-#         spec.update(1, [('req', 0.45), ('gnt', 0.12)])
-#         spec.update(2, [('req', 0.78), ('gnt', 0.18)])
-#         nb_violations = spec.sampling_violation_counter #// nb_violations = 0
-#     except MonException as err:
-#         print('RTAMT Exception: {}'.format(err))
-#         sys.exit()
         
 def monitor_d():
     # # stl
     spec = StlDiscreteTimeSpecification()
     spec.declare_var('pred', 'float')
     spec.declare_var('dist', 'float')
-    spec.spec = '(always[0,3](pred >= dist)) implies (eventually[3,4](pred < dist))'
+    spec.spec = '(always[0,3](pred >= dist)) implies (eventually[3,5](pred < dist))'
+    # spec.spec = '(always[0,3](pred >= dist))'
     spec.parse()
    
 
@@ -112,7 +93,7 @@ def monitor_d():
     #     print('Mon Exception: {}'.format(err))
     #     sys.exit()
         
-    prediction = [0.0, 4.0, 6.0, 8.0, 10.0, 12.0, 16.0]
+    prediction = [0.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0]
     
     rob = spec.update(0, [('pred', prediction), ('dist', 2.0)])
     print('time = ' + str(0) + ',  robustness = ' + str(rob))
