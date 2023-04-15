@@ -27,6 +27,8 @@ from abstract_ast_parser import AbstractAst
 from ltl_ast_visitor import *
 from ltl_pastifier import *
 
+from testrobots.msg import FloatStamped
+
 
 
 def callback(data, args):
@@ -64,14 +66,15 @@ def monitor(stl_arg, period_arg, unit_arg):
     rospy.loginfo('Initialized the node STLMonitor')
 
     # Advertise the node as a publisher to the topic defined by the out var of the spec
-    var_object = spec.get_var_object(spec.out_var)
+    var_object = spec.var_object_dict[spec.out_var]
     topic = spec.var_topic_dict[spec.out_var]
     rospy.loginfo('Registering as publisher to topic {}'.format(topic))
     pub = rospy.Publisher(topic, var_object.__class__, queue_size=10)
+    robustness_msg = FloatStamped()
 
-    # For each var from the spec, subscribe to its topic
+    # For each var from the spec, subscribe to its topic ::::var_object = spec.get_var_object(var_name)
     for var_name in spec.free_vars:
-        var_object = spec.get_var_object(var_name)
+        var_object = spec.var_object_dict[var_name]
         topic = spec.var_topic_dict[var_name]
         rospy.loginfo('Subscribing to topic ' + topic)
         rospy.Subscriber(topic, var_object.__class__, callback, [spec, var_name])
@@ -84,7 +87,7 @@ def monitor(stl_arg, period_arg, unit_arg):
     while not rospy.is_shutdown():
         var_name_object_list = []
         for var_name in spec.free_vars:
-            var_name_object = (var_name, spec.get_var_object(var_name))
+            var_name_object = (var_name, spec.var_object_dict[var_name])
             var_name_object_list.append(var_name_object)
 
         # Evaluate the spec

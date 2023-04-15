@@ -186,29 +186,31 @@ class LtlAstParserVisitor(ltlParserVisitor):
             id_head = id_tokens[0]
             id_tokens.pop(0)
             id_tail = '.'.join(id_tokens)
+            
+            var = self.create_var_from_name(id_head)
 
-            try:
-                var = self.create_var_from_name(id_head)
-                if (not id_tail):
-                    if (not isinstance(var, (int, float))):
-                        raise MonException('Variable {} is not of type int or float'.format(id))
-                else:
-                    try:
-                        value = operator.attrgetter(id_tail)(var)
-                        if (not isinstance(value, (int, float))):
-                            raise MonException(
-                                'The field {0} of the variable {1} is not of type int or float'.format(id, id_head))
-                    except AttributeError as err:
-                        raise MonException(err)
-            except KeyError:
-                if id_tail:
-                    raise MonException('{0} refers to undeclared variable {1} of unknown type'.format(id, id_head))
-                else:
-                    var = float()
-                    self.var_object_dict[id] = var
-                    self.add_var(id)
-                    logging.warning('The variable {} is not explicitely declared. It is implicitely declared as a '
-                                'variable of type float'.format(id))
+            # try:
+            #     var = self.create_var_from_name(id_head)
+            #     if (not id_tail):
+            #         if (not isinstance(var, (int, float))):
+            #             raise MonException('Variable {} is not of type int or float'.format(id))
+            #     else:
+            #         try:
+            #             value = operator.attrgetter(id_tail)(var)
+            #             if (not isinstance(value, (int, float))):
+            #                 raise MonException(
+            #                     'The field {0} of the variable {1} is not of type int or float'.format(id, id_head))
+            #         except AttributeError as err:
+            #             raise MonException(err)
+            # except KeyError:
+            #     if id_tail:
+            #         raise MonException('{0} refers to undeclared variable {1} of unknown type'.format(id, id_head))
+            #     else:
+            #         var = float()
+            #         self.var_object_dict[id] = var
+            #         self.add_var(id)
+            #         logging.warning('The variable {} is not explicitely declared. It is implicitely declared as a '
+            #                     'variable of type float'.format(id))
 
             var_io = self.var_io_dict[id_head]
             node = Variable(id_head, id_tail, var_io)
@@ -426,31 +428,34 @@ class LtlAstParserVisitor(ltlParserVisitor):
         id_head = id_tokens[0]
         id_tokens.pop(0)
         id_tail = '.'.join(id_tokens)
+        
+        var = self.var_object_dict[id_head]
+        var = self.create_var_from_name(id_head)
 
-        try:
-            var = self.var_object_dict[id_head]
-            var = self.create_var_from_name(id_head)
-            if (not id_tail):
-                if (not isinstance(var, (int, float))):
-                    raise MonException('Variable {} is not of type int or float'.format(id))
-            else:
-                try:
-                    value = operator.attrgetter(id_tail)(var)
-                    if (not isinstance(value, (int, float))):
-                        raise MonException(
-                            'The field {0} of the variable {1} is not of type int or float'.format(id, id_head))
-                except AttributeError as err:
-                    raise MonException(err)
-        except KeyError:
-            if id_tail:
-                raise MonException('{0} refers to undeclared variable {1} of unknown type'.format(id, id_head))
-            else:
-                var = float()
-                self.var_object_dict[id] = var
-                self.add_var(id)
-                if not implicit:
-                    logging.warning('The variable {} is not explicitly declared. It is implicitly declared as a '
-                                    'variable of type float'.format(id))
+        # try:
+        #     var = self.var_object_dict[id_head]
+        #     var = self.create_var_from_name(id_head)
+        #     if (not id_tail):
+        #         if (not isinstance(var, (int, float))):
+        #             raise MonException('Variable {} is not of type int or float'.format(id))
+        #     else:
+        #         try:
+        #             value = operator.attrgetter(id_tail)(var)
+        #             if (not isinstance(value, (int, float))):
+        #                 raise MonException(
+        #                     'The field {0} of the variable {1} is not of type int or float'.format(id, id_head))
+        #         except AttributeError as err:
+        #             raise MonException(err)
+        # except KeyError:
+        #     if id_tail:
+        #         raise MonException('{0} refers to undeclared variable {1} of unknown type'.format(id, id_head))
+        #     else:
+        #         var = float()
+        #         self.var_object_dict[id] = var
+        #         self.add_var(id)
+        #         if not implicit:
+        #             logging.warning('The variable {} is not explicitly declared. It is implicitly declared as a '
+        #                             'variable of type float'.format(id))
 
         self.out_var = id_head
         self.out_var_field = id_tail

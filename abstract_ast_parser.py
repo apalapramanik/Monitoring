@@ -114,20 +114,7 @@ class AbstractAst:
         self.visit(ctx.specification())
         return
 
-    
-    # def parse(self):
-    #     if self.spec is None:
-    #         raise MonException('STL specification if empty')
-        
-    #     entire_spec = self.modular_spec + self.spec
-    #     input_stream = InputStream(entire_spec)
-    #     lexer = self.antrlLexerType(input_stream)
-    #     stream = CommonTokenStream(lexer)
-    #     parser = self.antrlParserType(stream)
-    #     ctx = parser.specification_file()
-    #     self.visit(ctx.specification())
-        # return
-    
+  
     ##################################################################3
     
     @property
