@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from node import *
 from interpreters import AbstractAstVisitor
 from discrete_operators import *

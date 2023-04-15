@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python3
 from horizon_pastifier import *
 from stl_specification_parser import StlAst
 from ast_visitor import *

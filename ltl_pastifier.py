@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from interpreters import AbstractAstVisitor
 from node import *
 from exception import MonException

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from discrete_operators import *
 from stl_temporal_nodes import *
 from exception import MonException

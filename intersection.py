@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import math
 
 def interval_union(a, b, method):

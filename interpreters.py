@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from abc import ABCMeta, abstractmethod
 from exception import MonException
 from node import *

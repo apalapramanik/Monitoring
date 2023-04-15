@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import sys
 from antlr import *
 from abstract_ast_parser import *

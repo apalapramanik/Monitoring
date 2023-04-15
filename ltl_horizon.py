@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from ltl_ast_visitor import LtlAstVisitor
 
 from rtamt.exception.exception import RTAMTException

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 class MonException(Exception):
     def __init__(self, *args):
         if args:

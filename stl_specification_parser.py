@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from stl_parser_visitor import StlAstParserVisitor
 from antlr.stlLexer import stlLexer
 from antlr.stlParser import stlParser

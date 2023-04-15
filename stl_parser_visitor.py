@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from decimal import Decimal
 from fractions import Fraction
 from stl_temporal_nodes import *

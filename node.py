@@ -1,4 +1,4 @@
-#import abc meta class from abc module: Abstract Base Class
+#!/usr/bin/env python3
 from abc import ABCMeta
 from enumerations import StlIOType
 

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import os
 from abc import ABCMeta
 from time_interpreter import *

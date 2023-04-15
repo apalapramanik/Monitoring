@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python3
 
 from ast_visitor import StlAstVisitor
 # from rtamt.pastifier.ltl.horizon import LtlHorizon

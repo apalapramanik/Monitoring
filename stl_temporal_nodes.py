@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from node import UnaryNode, BinaryNode, LeafNode
 from interval import Interval
 
