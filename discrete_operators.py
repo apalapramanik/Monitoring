@@ -304,6 +304,8 @@ class PredicateOperation(AbstractOnlineOperation):
 
     def reset(self):
         pass
+    
+     #*************************added by apala ************************************************************************************************************************************
 
     def compute(self, sample_left, sample_right):
         if self.comparison_op.value == StlComparisonOperator.EQUAL.value:
@@ -318,27 +320,36 @@ class PredicateOperation(AbstractOnlineOperation):
             raise MonException('Unknown predicate operation')
 
         return sample_return
-   #*************************added by apala ************************************************************************************************************************************ 
+   
    
     def update(self, sample_left, sample_right):
         
-        if isinstance(sample_left, list) and isinstance(sample_right, list):
-            # Both samples are lists
+        # print("type of sample left :", type(sample_left))
+        # print("type of sample right :", type(sample_right))
+        
+        if (isinstance(sample_left, list) or isinstance(sample_left, tuple))  and (isinstance(sample_right, list) or isinstance(sample_right, tuple)):
+            # Both samples are lists/tuple
             if len(sample_left) != len(sample_right):
                 raise ValueError('Sample lists must have the same length')
             sample_return = []
             for i in range(len(sample_left)):
                 sample_return.append(self.compute(sample_left[i], sample_right[i]))
-        elif isinstance(sample_left, list):
-            # Only the left sample is a list
+                
+                
+        elif (isinstance(sample_left, list) or isinstance(sample_left, tuple)) and isinstance(sample_right, float):
+            # Only the left sample is a list/tuple
             sample_return = []
             for i in range(len(sample_left)):
                 sample_return.append(self.compute(sample_left[i], sample_right))
-        elif isinstance(sample_right, list):
-            # Only the right sample is a list
+                
+                
+        elif (isinstance(sample_right, list) or isinstance(sample_right, tuple)) and isinstance(sample_left, float):
+            # Only the right sample is a list/tuple
             sample_return = []
             for i in range(len(sample_right)):
                 sample_return.append(self.compute(sample_left, sample_right[i]))
+                
+                
         else:
             # Neither sample is a list
             sample_return = self.compute(sample_left, sample_right)
