@@ -8,5 +8,5 @@ input ListStamped pred1
 input FloatStamped safe
 @ topic(safe, safety)
 output FloatStamped worker1
-worker1.value = always[0,2](pred1.data > safe.value)
+worker1.value = (always[0,2](pred1.data > safe.value)) implies (eventually[2,4](pred1.data < safe.value))
 
