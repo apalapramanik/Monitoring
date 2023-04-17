@@ -1,0 +1,12 @@
+from testrobots.msg import FloatStamped
+from testrobots.msg import ListStamped
+from std_msgs.msg import Float32
+
+
+input ListStamped pred1
+@ topic(pred1,pred1_array)
+input FloatStamped safe
+@ topic(safe, safety)
+output FloatStamped worker1
+worker1.value = always[0,2](pred1.data > safe.value)
+
