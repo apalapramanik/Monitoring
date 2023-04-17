@@ -304,8 +304,6 @@ class PredicateOperation(AbstractOnlineOperation):
 
     def reset(self):
         pass
-    
-     #*************************added by apala ************************************************************************************************************************************
 
     def compute(self, sample_left, sample_right):
         if self.comparison_op.value == StlComparisonOperator.EQUAL.value:
@@ -320,7 +318,7 @@ class PredicateOperation(AbstractOnlineOperation):
             raise MonException('Unknown predicate operation')
 
         return sample_return
-   
+   #*************************added by apala ************************************************************************************************************************************ 
    
     def update(self, sample_left, sample_right):
         
